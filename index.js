@@ -3,10 +3,18 @@ for (var i = 0; i<document.querySelectorAll(".drum").length; i++) {
 }
 
 function handleClick() {
-    
-    drum = this.innerHTML;
+    var drum = this.innerHTML;
+    makeSound(drum); 
+    buttonAnimation(drum);   
+}
 
-    switch (drum) {
+document.addEventListener("keydown", function(event) {
+    makeSound(event.key);
+    buttonAnimation(event.key);
+})
+
+function makeSound(key) {
+    switch (key) {
         case "w":
             new Audio("sounds/tom-1.mp3").play();
             break;
@@ -31,16 +39,12 @@ function handleClick() {
         default: console.log(drum);
             break;
     }
-    
 }
 
-
-
-
-
-// new Audio("sounds/tom-1.mp3").play();
-
-// drum = document.getElementsByClassName(this.innerHTML)[0];
-//drum.style.color = "#EEE";
-
-// this.style.color = "#EEE";
+function buttonAnimation(currenKey) {
+    var activeButton = document.querySelector("." + currenKey)
+    activeButton.classList.add("pressed");
+    setTimeout(function() {
+        activeButton.classList.remove("pressed");
+    }, 100);
+}
